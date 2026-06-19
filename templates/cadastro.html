@@ -2,48 +2,14 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Abonada</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { background: #f4f6f9; padding: 30px; }
-        
-        .container { 
-            max-width: 700px; 
-            margin: auto; 
-            background: white; 
-            padding: 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 0 15px rgba(0,0,0,0.1); 
-        }
-        
+        body { background: #f4f6f9; padding: 30px; font-family: Arial, sans-serif; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
         h1 { margin-bottom: 20px; color: #1e3a8a; }
-        
-        /* Garantindo que cada label e input fique em uma linha separada */
-        label { display: block; margin-top: 15px; font-weight: bold; width: 100%; }
-        
-        input, select { 
-            display: block; /* Força quebra de linha */
-            width: 100%; 
-            padding: 12px; 
-            margin-top: 5px; 
-            border: 1px solid #ccc; 
-            border-radius: 8px; 
-        }
-        
-        button { 
-            display: block; /* Força o botão a ficar na linha de baixo */
-            margin-top: 20px; 
-            width: 100%; 
-            padding: 12px; 
-            background: #2563eb; 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-        }
-        
-        button:hover { background: #1d4ed8; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input, select { display: block; width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; }
+        button { display: block; margin-top: 20px; width: 100%; padding: 12px; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -58,27 +24,16 @@
 
             <label>Setor:</label>
             <select name="setor" required>
-                <option value="" disabled selected>Selecione o setor...</option>
                 <option value="DGI">DGI</option>
                 <option value="Obras">Obras</option>
                 <option value="Saude">Saúde</option>
                 <option value="RH">RH</option>
-                <option value="CRAS">CRAS</option>
-                <option value="Transito e Transporte">Trânsito e Transporte</option>
-                <option value="Educacao">Educação</option>
-                <option value="Convenio">Convênio</option>
-                <option value="Juridico">Jurídico</option>
-                <option value="Turismo">Turismo</option>
-                <option value="Engenharia">Engenharia</option>
-                <option value="Agropecuaria">Agropecuária</option>
             </select>
 
             <label>Trimestre</label>
             <select name="trimestre" required>
                 <option value="1º Trimestre">1º Trimestre</option>
                 <option value="2º Trimestre">2º Trimestre</option>
-                <option value="3º Trimestre">3º Trimestre</option>
-                <option value="4º Trimestre">4º Trimestre</option>
             </select>
 
             <button type="submit">Salvar</button>
