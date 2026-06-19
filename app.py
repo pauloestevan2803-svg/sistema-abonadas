@@ -87,7 +87,33 @@ def login():
             session['perfil'] = user[3]  
             return redirect('/dashboard')
         else:
-            return "❌ Usuário ou senha incorretos! Volte e tente novamente."
+            return """
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Erro de Login</title>
+                <style>
+                    body{ margin:0; height:100vh; display:flex; justify-content:center; align-items:center; background:#f4f6f9; font-family:Arial,sans-serif; }
+                    .card{ background:white; width:450px; padding:40px; border-radius:15px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.15); }
+                    .icone{ font-size:70px; color:#ef4444; }
+                    h2{ color:#1e3a8a; margin-top:15px; }
+                    p{ color:#64748b; font-size:16px; margin-top:10px; }
+                    .botao{ display:inline-block; background:#2563eb; color:white; text-decoration:none; padding:12px 25px; border-radius:8px; margin-top:20px; }
+                </style>
+            </head>
+            <body>
+                <div class="card">
+                    <div class="icone">❌</div>
+                    <h2>Falha no Login</h2>
+                    <p>Usuário ou senha incorretos!</p>
+                    <br>
+                    <a class="botao" href="/login">Tentar Novamente</a>
+                </div>
+            </body>
+            </html>
+            """
     
     return render_template('login.html')
 
