@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 import psycopg2
 
 app = Flask(__name__)
-
+app.secret_key = 'fa48d13a972b85006eb37bc06e03f68f9f64159b44f22f2156bb9e1ac36a5980'
 import os
 import psycopg2
 
