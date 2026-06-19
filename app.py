@@ -218,7 +218,7 @@ def consulta():
         cursor = conn.cursor()
         cursor.execute(
             """
-            SELECT id, nome, data_abonada, setor, trimestre
+            SELECT *
             FROM abonadas
             WHERE nome ILIKE %s
             OR setor ILIKE %s
