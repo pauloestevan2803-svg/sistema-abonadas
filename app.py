@@ -30,11 +30,13 @@ def inicializar_banco():
             CREATE TABLE IF NOT EXISTS abonadas (
                 id SERIAL PRIMARY KEY,
                 nome VARCHAR(100) NOT NULL,
-                data_abonada DATE NOT NULL,
+                data_abonada DATE,
                 setor VARCHAR(50),
                 trimestre VARCHAR(50)
             );
         """)
+        cursor.execute("ALTER TABLE abonadas ADD COLUMN IF NOT EXISTS nome VARCHAR(100);")
+        cursor.execute("ALTER TABLE abonadas ADD COLUMN IF NOT EXISTS data_abonada DATE;")
         cursor.execute("ALTER TABLE abonadas ADD COLUMN IF NOT EXISTS setor VARCHAR(50);")
         cursor.execute("ALTER TABLE abonadas ADD COLUMN IF NOT EXISTS trimestre VARCHAR(50);")
         
@@ -53,7 +55,7 @@ def inicializar_banco():
         
         conn.commit()
         cursor.close()
-        print("⚡ Banco de dados verificado e atualizado com sucesso!")
+        print("⚡ Banco de dados verificado e updated!")
     except Exception as e:
         print("Erro ao inicializar o banco:", e)
         conn.rollback()
