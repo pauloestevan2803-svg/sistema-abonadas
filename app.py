@@ -147,12 +147,9 @@ def cadastro():
             cursor = conn.cursor()
             
             cursor.execute(
-                """
-                INSERT INTO abonadas (nome, data_abonada, setor, trimestre) 
-                VALUES (%s, %s, %s, %s)
-                """,
-                (nome, data_abonada, setor, trimestre)
-            )
+    "INSERT INTO abonadas (nome, data_abonada, data, setor, trimestre) VALUES (%s, %s, %s, %s, %s)",
+    (nome, data_abonada, data_abonada, setor, trimestre)
+)
             conn.commit()
             cursor.close()
 
