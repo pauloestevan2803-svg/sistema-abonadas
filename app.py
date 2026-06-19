@@ -31,10 +31,11 @@ def inicializar_banco():
                 id SERIAL PRIMARY KEY,
                 nome VARCHAR(100) NOT NULL,
                 data_abonada DATE NOT NULL,
-                setor VARCHAR(50) NOT NULL,
+                setor VARCHAR(50),
                 trimestre VARCHAR(50)
             );
         """)
+        cursor.execute("ALTER TABLE abonadas ADD COLUMN IF NOT EXISTS setor VARCHAR(50);")
         cursor.execute("ALTER TABLE abonadas ADD COLUMN IF NOT EXISTS trimestre VARCHAR(50);")
         
         cursor.execute("""
