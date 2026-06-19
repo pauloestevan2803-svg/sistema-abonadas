@@ -145,8 +145,12 @@ def cadastro():
                 return "Erro: Todos os campos são obrigatórios!"
 
             cursor = conn.cursor()
+            
             cursor.execute(
-                "INSERT INTO abonadas (nome, data_abonada, setor, trimestre) VALUES (%s, %s, %s, %s)",
+                """
+                INSERT INTO abonadas (nome, data_abonada, setor, trimestre) 
+                VALUES (%s, %s, %s, %s)
+                """,
                 (nome, data_abonada, setor, trimestre)
             )
             conn.commit()
