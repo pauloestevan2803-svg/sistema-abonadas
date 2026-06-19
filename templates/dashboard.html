@@ -1,95 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Sistema de Abonadas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f4f6f9; color: #334155; display: flex; min-height: 100vh; flex-direction: column; }
+        
+        .header { background: #1e3a8a; color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header h1 { font-size: 22px; font-weight: 600; }
+        .btn-sair { background: #ef4444; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: 500; transition: background 0.2s; }
+        .btn-sair:hover { background: #dc2626; }
 
-<style>
+        .container { flex: 1; padding: 40px; max-width: 1200px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
-}
+        .welcome-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 6px solid #2563eb; }
+        .welcome-box h2 { color: #1e3a8a; font-size: 26px; margin-bottom: 10px; }
+        .welcome-box p { color: #64748b; font-size: 16px; line-height: 1.5; }
 
-body{
-display:flex;
-height:100vh;
-background:#f4f6f9;
-}
+        .grid-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 12px rgba(0,0,0,0.1); }
+        .card-title { font-size: 18px; color: #1e3a8a; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .card-desc { color: #64748b; font-size: 14px; margin-bottom: 20px; line-height: 1.4; }
+        .card-btn { display: inline-block; text-align: center; background: #2563eb; color: white; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: 500; transition: background 0.2s; }
+        .card-btn:hover { background: #1d4ed8; }
+        
+        .card-btn.disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; pointer-events: none; }
 
-.sidebar{
-width:250px;
-background:#1e3a8a;
-color:white;
-padding:20px;
-}
-
-.sidebar h2{
-margin-bottom:30px;
-}
-
-.sidebar a{
-display:block;
-color:white;
-text-decoration:none;
-padding:12px;
-margin-bottom:10px;
-border-radius:8px;
-}
-
-.sidebar a:hover{
-background:#2563eb;
-}
-
-.content{
-flex:1;
-padding:30px;
-}
-
-.card{
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,0.1);
-}
-
-</style>
-
+        .footer-info { margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end; }
+        .user-badge { background: #e2e8f0; color: #1e3a8a; padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    </style>
 </head>
-
 <body>
 
-<div class="sidebar">
+    <div class="header">
+        <h1>Sistema de Controle de Abonadas</h1>
+        <a href="/sair" class="btn-sair">Sair</a>
+    </div>
 
-<h2>Controle</h2>
+    <div class="container">
+        
+        <div class="welcome-box">
+            <h2>Olá, 
+                {% if session['usuario'] == 'recepcao' %}Recepção
+                {% elif session['usuario'] == 'rh' %}Recursos Humanos
+                {% elif session['usuario'] == 'dgi' %}Departamento de Governo e Infraestrutura
+                {% else %}{{ session['usuario'] }}{% endif %}!
+            </h2>
+            <p>Painel de gerenciamento centralizado. Utilize os atalhos abaixo para registrar novas ocorrências, realizar buscas no histórico de servidores ou extrair relatórios estatísticos trimestrais.</p>
+        </div>
 
-<a href="/dashboard">🏠 Dashboard</a>
-<a href="/cadastro">➕ Nova Abonada</a>
-<a href="/consulta">🔍 Consultar</a>
-<a href="/relatorio">📊 Relatórios</a>
-<a href="/sair">🚪 Sair</a>
-</div>
+        <div class="grid-actions">
+            
+            <div class="card">
+                <div>
+                    <div class="card-title">📝 Registrar Abonada</div>
+                    <p class="card-desc">Cadastre uma nova falta abonada no sistema vinculando o nome do servidor ao seu trimestre e respectivo setor de atuação.</p>
+                </div>
+                {% if session['perfil'] == 'admin' %}
+                    <a href="/cadastro" class="card-btn">Lançar Registro</a>
+                {% else %}
+                    <span class="card-btn disabled" title="Seu perfil não possui permissão para cadastrar">Acesso Restrito</span>
+                {% endif %}
+            </div>
 
-<div class="content">
+            <div class="card">
+                <div>
+                    <div class="card-title">🔍 Consultar Histórico</div>
+                    <p class="card-desc">Realize buscas completas no banco de dados filtrando os registros salvos por nome de servidor, data específica ou setor.</p>
+                </div>
+                <a href="/consulta" class="card-btn">Abrir Consulta</a>
+            </div>
 
-<div class="card">
+            <div class="card">
+                <div>
+                    <div class="card-title">📊 Relatórios de Produtividade</div>
+                    <p class="card-desc">Acompanhe a volumetria de faltas abonadas agrupadas de maneira organizada por trimestre vigente.</p>
+                </div>
+                <a href="/relatorio" class="card-btn">Ver Relatórios</a>
+            </div>
 
-<h1>Bem-vindo ao Sistema</h1>
+        </div>
 
-<br>
-
-<p>
-Gerencie as abonadas da empresa de forma rápida e organizada.
-</p>
-
-</div>
-
-</div>
+        <div class="footer-info">
+            <div class="user-badge">
+                👤 Conectado como: 
+                <strong>
+                    {% if session['usuario'] == 'recepcao' %}
+                        Recepção
+                    {% elif session['usuario'] == 'rh' %}
+                        Recursos Humanos
+                    {% elif session['usuario'] == 'dgi' %}
+                        Departamento de Governo e Infraestrutura
+                    {% else %}
+                        {{ session['usuario'] }}
+                    {% endif %}
+                </strong>
+            </div>
+        </div>
+    </div>
 
 </body>
-
 </html>
