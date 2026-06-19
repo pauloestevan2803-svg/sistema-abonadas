@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório</title>
+
+<style>
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f4f6f9;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+h1{
+    color:#1e3a8a;
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#1e3a8a;
+    color:white;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+.voltar{
+    display:inline-block;
+    margin-top:20px;
+    text-decoration:none;
+    background:#2563eb;
+    color:white;
+    padding:10px 20px;
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Relatório de Abonadas por Trimestre</h1>
+
+<table>
+
+<tr>
+<th>Trimestre</th>
+<th>Quantidade</th>
+</tr>
+
+{% for linha in dados %}
+
+<tr>
+<td>{{ linha[0] }}</td>
+<td>{{ linha[1] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/dashboard" class="voltar">
+Voltar ao Dashboard
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+display:flex;
+height:100vh;
+background:#f4f6f9;
+}
+
+.sidebar{
+width:250px;
+background:#1e3a8a;
+color:white;
+padding:20px;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:12px;
+margin-bottom:10px;
+border-radius:8px;
+}
+
+.sidebar a:hover{
+background:#2563eb;
+}
+
+.content{
+flex:1;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Controle</h2>
+
+<a href="/dashboard">🏠 Dashboard</a>
+<a href="/cadastro">➕ Nova Abonada</a>
+<a href="/consulta">🔍 Consultar</a>
+<a href="/relatorio">📊 Relatórios</a>
+<a href="/sair">🚪 Sair</a>
+</div>
+
+<div class="content">
+
+<div class="card">
+
+<h1>Bem-vindo ao Sistema</h1>
+
+<br>
+
+<p>
+Gerencie as abonadas da empresa de forma rápida e organizada.
+</p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
