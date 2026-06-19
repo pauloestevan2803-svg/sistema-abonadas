@@ -124,7 +124,7 @@ def login():
 def menu():
     if 'usuario' not in session:
         return redirect('/login')
-    return render_template('dashboard.html')
+    return render_template('menu.html')
 
 @app.route('/cadastro', methods=['GET', 'POST']) 
 def cadastro():
