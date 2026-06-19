@@ -1,0 +1,1 @@
+console.log("Sistema de Abonadas carregado com sucesso.");
