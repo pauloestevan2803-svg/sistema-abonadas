@@ -16,53 +16,55 @@ conn = psycopg2.connect(
 cursor = conn.cursor()
 
 
-# LOGIN
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'POST':
+        # 1. Pega os dados que o usuário digitou na tela de login
+        usuario_digitado = request.form.get('usuario')
+        senha_digitada = request.form.get('senha')
 
-        usuario = request.form['usuario']
-        senha = request.form['senha']
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT id, usuario, senha, perfil FROM usuarios WHERE usuario = %s", (usuario_digitado,))
+        user = cursor.fetchone()
+        cursor.close()
 
-        cursor.execute(
-            """
-            SELECT *
-            FROM usuarios
-            WHERE usuario = %s
-            AND senha = %s
-            """,
-            (usuario, senha)
-        )
-
-        resultado = cursor.fetchone()
-
-        if resultado:
+        if user and user[2] == senha_digitada:
+            # 4. Se deu certo, salvamos os dados dele na "memória" do navegador (Session)
+            session['usuario'] = user[1] # Salva o nome (recepcao, dgi ou rh)
+            session['perfil'] = user[3]  # Salva o perfil (admin ou leitura)
+            
             return redirect('/dashboard')
+        else:
+           
+            return "❌ Usuário ou senha incorretos! Volte e tente novamente."
 
-        return """
-        <h2>Usuário ou senha inválidos</h2>
-        <br>
-        <a href="/">Voltar</a>
-        """
-
+    
     return render_template('login.html')
 
 
-# DASHBOARD
+
 
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
 
 
-# CADASTRO
 
-@app.route('/cadastro', methods=['GET', 'POST'])
+@app.route('/cadastro', methods=['GET', 'POST']) 
 def cadastro():
+  
+    if 'usuario' not in session:
+        return redirect('/login')
+    
+    
+    if session.get('perfil') != 'admin':
+        return "❌ Acesso Negado: Seu perfil não tem permissão para cadastrar abonadas.", 403
 
+  
     if request.method == 'POST':
+        
+        pass
 
         try:
 
@@ -186,8 +188,6 @@ Cadastrar Outra
     return render_template('cadastro.html')
 
 
-# CONSULTA
-
 @app.route('/consulta', methods=['GET', 'POST'])
 def consulta():
 
@@ -221,8 +221,6 @@ def consulta():
     )
 
 
-# RELATÓRIO
-
 @app.route('/relatorio')
 def relatorio():
 
@@ -245,7 +243,6 @@ def relatorio():
     )
 
 
-# SAIR
 
 @app.route('/sair')
 def sair():
