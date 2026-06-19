@@ -1,122 +1,42 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% extends "base.html" %}
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova Abonada</title>
+{% block content %}
+<div class="card">
+    <h1>Nova Abonada</h1>
+    <form method="POST">
+        <label>Nome</label>
+        <input type="text" name="nome" required>
 
-<style>
+        <label>Data da Abonada</label>
+        <input type="date" name="data_abonada" required>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
-}
+        <label>Setor:</label>
+        <select name="setor" required>
+            <option value="" disabled selected>Selecione o setor...</option>
+            <option value="DGI">DGI</option>
+            <option value="Obras">Obras</option>
+            <option value="Saude">Saúde</option>
+            <option value="RH">RH</option>
+            <option value="CRAS">CRAS</option>
+            <option value="Transito e Transporte">Trânsito e Transporte</option>
+            <option value="Educacao">Educação</option>
+            <option value="Convenio">Convênio</option>
+            <option value="Juridico">Jurídico</option>
+            <option value="Turismo">Turismo</option>
+            <option value="Engenharia">Engenharia</option>
+            <option value="Agropecuaria">Agropecuária</option>
+        </select>
 
-body{
-background:#f4f6f9;
-padding:30px;
-}
+        <label>Trimestre</label>
+        <select name="trimestre" required>
+            <option value="1º Trimestre">1º Trimestre</option>
+            <option value="2º Trimestre">2º Trimestre</option>
+            <option value="3º Trimestre">3º Trimestre</option>
+            <option value="4º Trimestre">4º Trimestre</option>
+        </select>
 
-.container{
-max-width:700px;
-margin:auto;
-background:white;
-padding:30px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,0.1);
-}
-
-h1{
-margin-bottom:20px;
-color:#1e3a8a;
-}
-
-label{
-display:block;
-margin-top:15px;
-font-weight:bold;
-}
-
-input, select{
-width:100%;
-padding:12px;
-margin-top:5px;
-border:1px solid #ccc;
-border-radius:8px;
-}
-
-button{
-margin-top:20px;
-width:100%;
-padding:12px;
-background:#2563eb;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-}
-
-button:hover{
-background:#1d4ed8;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>Nova Abonada</h1>
-
-<form method="POST">
-
-<label>Nome</label>
-<input type="text" name="nome" required>
-
-<label>Data da Abonada</label>
-<input type="date" name="data_abonada" required>
-
-<label for="setor">Setor:</label>
-<select name="setor" id="setor" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 15px; background-color: white; font-size: 16px;">
-    <option value="" disabled selected>Selecione o setor...</option>
-    <option value="DGI">DGI</option>
-    <option value="Obras">Obras</option>
-    <option value="Saude">Saúde</option>
-    <option value="RH">RH</option>
-    <option value="CRAS">CRAS</option>
-    <option value="Transito e Transporte">Trânsito e Transporte</option>
-    <option value="Educação">Educação</option>
-    <option value="Convenio">Convênio</option>
-    <option value="Juridico">Jurídico</option>
-    <option value="Turismo">Turismo</option>
-    <option value="Engenharia">Engenharia</option>
-    <option value="Agropecuaria">Agropecuária</option>
-</select>
-
-<label>Trimestre</label>
-
-<select name="trimestre">
-
-<option>1º Trimestre</option>
-<option>2º Trimestre</option>
-<option>3º Trimestre</option>
-<option>4º Trimestre</option>
-
-</select>
-
-<button type="submit">
-Salvar
-</button>
-
-</form>
-
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="/menu" class="btn-voltar">Voltar ao Menu</a>
 </div>
-
-</body>
-
-</html>
+{% endblock %}

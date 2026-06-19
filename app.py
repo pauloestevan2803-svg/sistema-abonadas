@@ -132,47 +132,21 @@ def cadastro():
         return redirect('/login')
     
     if session.get('perfil') != 'admin':
-        return """
-        <!DOCTYPE html>
-        <html lang="pt-BR">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Acesso Negado</title>
-            <style>
-                body{ margin:0; height:100vh; display:flex; justify-content:center; align-items:center; background:#f4f6f9; font-family:Arial,sans-serif; }
-                .card{ background:white; width:450px; padding:40px; border-radius:15px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.15); }
-                .icone{ font-size:70px; color:#ef4444; }
-                h2{ color:#1e3a8a; margin-top:15px; }
-                p{ color:#64748b; font-size:16px; margin-top:10px; }
-                .botao{ display:inline-block; background:#2563eb; color:white; text-decoration:none; padding:12px 25px; border-radius:8px; margin-top:20px; }
-            </style>
-        </head>
-        <body>
-            <div class="card">
-                <div class="icone">❌</div>
-                <h2>Acesso Negado</h2>
-                <p>Seu perfil não possui permissão para cadastrar abonadas.</p>
-                <br>
-                <a class="botao" href="/menu">Voltar ao Menu Inicial</a>
-            </div>
-        </body>
-        </html>
-        """, 403
+        return "Acesso Negado", 403
 
     if request.method == 'POST':
         try:
-            nome = request.form['nome']
-            data_abonada = request.form['data_abonada']
-            setor = request.form['setor']
-            trimestre = request.form['trimestre']
+            nome = request.form.get('nome')
+            data_abonada = request.form.get('data_abonada')
+            setor = request.form.get('setor')
+            trimestre = request.form.get('trimestre')
+
+            if not nome or not data_abonada or not setor or not trimestre:
+                return "Erro: Todos os campos são obrigatórios!"
 
             cursor = conn.cursor()
             cursor.execute(
-                """
-                INSERT INTO abonadas (nome, data_abonada, setor, trimestre)
-                VALUES (%s, %s, %s, %s)
-                """,
+                "INSERT INTO abonadas (nome, data_abonada, setor, trimestre) VALUES (%s, %s, %s, %s)",
                 (nome, data_abonada, setor, trimestre)
             )
             conn.commit()
@@ -181,31 +155,16 @@ def cadastro():
             return """
             <!DOCTYPE html>
             <html lang="pt-BR">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Sucesso</title>
-                <style>
-                    body{ margin:0; height:100vh; display:flex; justify-content:center; align-items:center; background:#f4f6f9; font-family:Arial,sans-serif; }
-                    .card{ background:white; width:450px; padding:40px; border-radius:15px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.15); }
-                    .icone{ font-size:70px; color:#22c55e; }
-                    h2{ color:#1e3a8a; margin-top:15px; }
-                    .botao{ display:inline-block; background:#2563eb; color:white; text-decoration:none; padding:12px 25px; border-radius:8px; }
-                </style>
-            </head>
+            <head><meta charset="UTF-8"><style>body{font-family:Arial;text-align:center;padding:50px;}</style></head>
             <body>
-                <div class="card">
-                    <div class="icone">✓</div>
-                    <h2>Registro salvo com sucesso!</h2>
-                    <br>
-                    <a class="botao" href="/cadastro">Cadastrar Outra</a>
-                </div>
+                <h2>Registro salvo com sucesso!</h2>
+                <a href="/cadastro">Cadastrar Outra</a> | <a href="/menu">Voltar ao Menu</a>
             </body>
             </html>
             """
         except Exception as erro:
             conn.rollback()
-            return f"<h2>ERRO NO CADASTRO</h2><p>{erro}</p>"
+            return f"<h2>Erro:</h2><p>{erro}</p>"
 
     return render_template('cadastro.html')
 
