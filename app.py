@@ -38,8 +38,8 @@ def inicializar_banco():
         cursor.execute("ALTER TABLE abonadas ADD COLUMN IF NOT EXISTS trimestre VARCHAR(50);")
         
         cursor.execute("""
-            INSERT INTO usuarios (usuario, senha, perfil) VALUES ('recepcao', '1234', 'admin')
-            ON CONFLICT (usuario) DO UPDATE SET perfil = 'admin', senha = '1234';
+            INSERT INTO usuarios (usuario, senha, perfil) VALUES ('recepcao', '123456vT@', 'admin')
+            ON CONFLICT (usuario) DO UPDATE SET perfil = 'admin', senha = '123456vT@';
         """)
         cursor.execute("""
             INSERT INTO usuarios (usuario, senha, perfil) VALUES ('dgi', '2026', 'leitura')
@@ -103,7 +103,33 @@ def cadastro():
         return redirect('/login')
     
     if session.get('perfil') != 'admin':
-        return "❌ Acesso Negado: Seu perfil não tem permissão para cadastrar abonadas.", 403
+        return """
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Acesso Negado</title>
+            <style>
+                body{ margin:0; height:100vh; display:flex; justify-content:center; align-items:center; background:#f4f6f9; font-family:Arial,sans-serif; }
+                .card{ background:white; width:450px; padding:40px; border-radius:15px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.15); }
+                .icone{ font-size:70px; color:#ef4444; }
+                h2{ color:#1e3a8a; margin-top:15px; }
+                p{ color:#64748b; font-size:16px; margin-top:10px; }
+                .botao{ display:inline-block; background:#2563eb; color:white; text-decoration:none; padding:12px 25px; border-radius:8px; margin-top:20px; }
+            </style>
+        </head>
+        <body>
+            <div class="card">
+                <div class="icone">❌</div>
+                <h2>Acesso Negado</h2>
+                <p>Seu perfil não possui permissão para cadastrar abonadas.</p>
+                <br>
+                <a class="botao" href="/dashboard">Voltar ao Painel</a>
+            </div>
+        </body>
+        </html>
+        """, 403
 
     if request.method == 'POST':
         try:
