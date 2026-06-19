@@ -88,7 +88,7 @@ def login():
         if user and user[2] == senha_digitada:
             session['usuario'] = user[1] 
             session['perfil'] = user[3]  
-            return redirect('/dashboard')
+            return redirect('/menu')
         else:
             return """
             <!DOCTYPE html>
@@ -120,8 +120,8 @@ def login():
     
     return render_template('login.html')
 
-@app.route('/dashboard')
-def dashboard():
+@app.route('/menu')
+def menu():
     if 'usuario' not in session:
         return redirect('/login')
     return render_template('dashboard.html')
@@ -154,7 +154,7 @@ def cadastro():
                 <h2>Acesso Negado</h2>
                 <p>Seu perfil não possui permissão para cadastrar abonadas.</p>
                 <br>
-                <a class="botao" href="/dashboard">Voltar ao Painel</a>
+                <a class="botao" href="/menu">Voltar ao Menu Inicial</a>
             </div>
         </body>
         </html>
