@@ -15,6 +15,12 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
+from flask import redirect 
+
+@app.route('/')
+def home():
+   
+    return redirect('/login')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
